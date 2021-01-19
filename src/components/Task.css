@@ -1,0 +1,21 @@
+.task ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.task ul> li{
+    background: #92898A;
+    margin-bottom: 1rem;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.task ul>li.active{
+    border-left: 5px solid #4CB944;
+}
+.task ul> li label{
+    margin-right: 5px;
+}

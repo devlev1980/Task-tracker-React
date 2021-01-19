@@ -1,0 +1,10 @@
+.header{
+    display: flex;
+    flex-direction: column;
+}
+.header .header_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
