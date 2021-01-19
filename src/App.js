@@ -3,6 +3,9 @@ import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import {useEffect, useState} from 'react'
 import AddTask from "./components/AddTask";
+import Footer from "./components/Footer";
+import About from "./components/About"
+import {BrowserRouter as Router,Route} from 'react-router-dom';
 
 function App() {
     const [showAddTask, setShowAddTask] = useState(false)
@@ -44,10 +47,9 @@ function App() {
     };
 
 
-    // Set reminder
+    // Set reminder with db.json
      const onSetReminder = async (id) => {
         const taskToToggle = await fetchTask(id);
-        console.log('aaa',taskToToggle)
         const updatedTask = {...taskToToggle,reminder: !taskToToggle.reminder};
 
         const res = await fetch(`${apiUrl}/${id}`,{
@@ -96,15 +98,25 @@ function App() {
     }
 
     return (
-        <div className="container">
-            <Header showAddTask={showAddTask} showTask={() => setShowAddTask(!showAddTask)}/>
-            {showAddTask && <AddTask onAdd={addTask}/>}
-            {
-                tasks.length > 0 ?
-                    <Tasks tasks={tasks} onRemove={onDeleteTask} onSetReminder={onSetReminder}/>
-                    : <p>No Tasks to to show</p>
-            }
-        </div>
+        <Router>
+            <div className="container">
+                <Header showAddTask={showAddTask} showTask={() => setShowAddTask(!showAddTask)}/>
+
+                <Route path='/' exact={true} render={(props)=> (
+                   <>
+                       {showAddTask && <AddTask onAdd={addTask}/>}
+                       {
+                           tasks.length > 0 ?
+                               <Tasks tasks={tasks} onRemove={onDeleteTask} onSetReminder={onSetReminder}/>
+                               : <p>No Tasks to to show</p>
+                       }
+                   </>
+                ) }/>
+                <Route path='/about' component={About}/>
+                <Footer/>
+            </div>
+        </Router>
+
     );
 }
 
